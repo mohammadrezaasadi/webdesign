@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<div id='update'></div>
+</body>
+<script>
+    var request = new XMLHttpRequest();
+    request.open('get', 'data.xml', true); //address web service soap - asmx
+    request.send();
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var items = request.responseXML.getElementsByTagName('name');
+            var output = "<ul>";
+            for (var i = 0; i < items.length; i++) {
+                output += "<li>" + items[i].firstChild.nodeValue + "</li>"
+
+            }
+            output += "</ul>";
+            document.getElementById('update').innerHTML=output;
+        }
+    };
+</script>
+
+</html>
